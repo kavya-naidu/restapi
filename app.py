@@ -1,41 +1,60 @@
-from flask import Flask, jsonify
-app = Flask('__name__')
+from flask import Flask,jsonify
 
-# Define the students list at the global level
-students = [
-    {
-        'id': 1,
-        'student_name': 'std1',
-        'age': 21,
-        'email': 'heloo@gmail.com'
-    },
-    {
-        'id': 2,
-        'student_name': 'std2',
-        'age': 22,
-        'email': 'heloo@gmail.com'
-    },
-    {
-        'id': 3,
-        'student_name': 'std3',
-        'age': 23,
-        'email': 'heloo@gmail.com'
-    }
-]
 
-@app.route('/students-list')
-def students_list():
+todo=Flask('__name__')
+
+students=[
+        {
+            'std_id':1,
+            'student_name':'aslam',
+            'age':21,
+            'email':'aslam262004@gmail.com'
+        },
+        {
+            'std_id':2,
+            'student_name': 'rakshitha',
+            'age': 20,
+            'email': 'rakshitha2735@gmail.com'
+        },
+        {
+            'std_id':3,
+            'student_name': 'padmashree',
+            'age': 21,
+            'email': 'padmashree22004@gmail.com'
+        },
+        {
+            'std_id':4,
+            'student_name': 'sami',
+            'age': 20,
+            'email': 'sami@gmail.com'
+        },
+        {
+            'std_id':5,
+            'student_name': 'aslam',
+            'age': 21,
+            'email': 'aslam262004@gmail.com'
+        },
+
+    ]
+
+@todo.route('/students-list')
+def student_list():
     return jsonify(students)
 
-@app.route('/students/get/<int:id>')
-def get_student(id):
-    # Use global variable students
-    student = next((s for s in students if s['id'] == id), None)
-    if student:
-        return jsonify(student)
-    else:
-        return jsonify({"error": "Student not found"}), 404
+@todo.route('/student/get/<int:std_id>')
+def student_get_by_id(std_id):
+    for std in students:
+        if std['std_id']==std_id:
+            return jsonify(std)
+    return "id not found"
 
-if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))  # Use assigned port or default to 5000
-    app.run(host="0.0.0.0", port=port)
+
+
+
+
+if __name__ == '__main__':
+    todo.run(
+        host='127.0.0.1',
+        port=5010,
+        debug=True
+    )
